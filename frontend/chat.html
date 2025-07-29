@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Chat - ElevateU</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #60a5fa;
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 16px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #facc15;
+    }
+
+    .main-content {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .main-content h1 {
+      font-size: 38px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .section-box {
+      background-color: white;
+      border-radius: 16px;
+      padding: 40px 35px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 480px;
+    }
+
+    #chat-box {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      background-color: #fefefe;
+      margin-bottom: 20px;
+    }
+
+    .user-msg {
+      text-align: right;
+      margin-bottom: 10px;
+    }
+
+    .bot-msg {
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .bubble {
+      display: inline-block;
+      padding: 10px 15px;
+      border-radius: 16px;
+      max-width: 80%;
+    }
+
+    .user-bubble {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+
+    .bot-bubble {
+      background-color: #e5e7eb;
+      color: #111827;
+    }
+
+    input[type="text"] {
+      width: 75%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 18px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    footer {
+      background: linear-gradient(to right, #ff8a00, #e52e71);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 15px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>🎓 ElevateU</strong></div>
+    <div class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="alumnimatch.html">Alumni Match & Referral</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="chat.html">🗪</a>
+      <a href="profile.html">👤</a>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <h1>Chat with ElevateU AI</h1>
+
+    <div class="dashboard-section">
+      <div class="section-box">
+        <div id="chat-box"></div>
+        <div style="display: flex;">
+          <input type="text" id="userInput" placeholder="Type your message...">
+          <button onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 ElevateU. Built by CodeCrafters.
+  </footer>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const message = input.value.trim();
+      if (!message) return;
+
+      appendMessage("user", message);
+      input.value = "";
+
+      try {
+        const res = await fetch("http://localhost:5000/api/ai/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await res.json();
+        if (data.response) {
+          appendMessage("bot", data.response);
+        } else {
+          appendMessage("bot", "⚠️ No response received.");
+        }
+      } catch (error) {
+        appendMessage("bot", "❌ Error: " + error.message);
+      }
+    }
+
+    function appendMessage(sender, text) {
+      const chatBox = document.getElementById("chat-box");
+      const msgDiv = document.createElement("div");
+      msgDiv.className = sender === "user" ? "user-msg" : "bot-msg";
+
+      const bubble = document.createElement("div");
+      bubble.className = `bubble ${sender === "user" ? "user-bubble" : "bot-bubble"}`;
+      bubble.textContent = text;
+
+      msgDiv.appendChild(bubble);
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>

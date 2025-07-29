@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Career Roadmap Generator - ElevateU</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    /* Top Header with light blue */
+    header {
+      background-color: #60a5fa; /* Tailwind light blue 400 */
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 16px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #facc15; /* Tailwind yellow 400 */
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 16px;
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #2563eb;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #3b82f6;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    #output {
+      white-space: normal;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #1e40af; /* Tailwind blue 800 */
+    }
+
+    #output h3 {
+      margin-top: 24px;
+      margin-bottom: 12px;
+      color: #1e3a8a;
+    }
+
+    #output ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: #374151;
+    }
+
+    #output li {
+      margin-bottom: 6px;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #ff8a00, #e52e71);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 15px;
+      margin-top: 60px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 20px rgba(229, 46, 113, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div><strong>ElevateU</strong></div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="alumnimatch.html">Alumni Match & Referral</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="chat.html">🗪</a>
+      <a href="profile.html">👤</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="jobInput" placeholder="Enter any career (e.g., Data Scientist, Ethical Hacker)" />
+      <button onclick="getRoadmap()">Generate</button>
+    </div>
+    <div id="output"></div>
+  </div>
+
+  <footer>
+    © 2025 ElevateU. Built by CodeCrafters.
+  </footer>
+
+  <script>
+    // Converts AI markdown-like response text into HTML for better formatting
+    function parseRoadmapTextToHTML(text) {
+      const lines = text.split('\n');
+      let html = '';
+      let inList = false;
+
+      lines.forEach(line => {
+        if(line.startsWith('### ')) {
+          if(inList) {
+            html += '</ul>';
+            inList = false;
+          }
+          html += `<h3>${line.replace('### ', '').trim()}</h3>`;
+        } 
+        else if(line.startsWith('- ')) {
+          if(!inList) {
+            html += '<ul>';
+            inList = true;
+          }
+          html += `<li>${line.replace('- ', '').trim()}</li>`;
+        }
+        else if(line.startsWith('  - ')) {
+          // Nested bullet, append inside last list item
+          // We can do a simple append here:
+          html = html.replace(/<\/li>$/, ` <ul><li>${line.replace('  - ', '').trim()}</li></ul></li>`);
+        }
+        else {
+          if(inList) {
+            html += '</ul>';
+            inList = false;
+          }
+          if(line.trim()) {
+            html += `<p>${line.trim()}</p>`;
+          }
+        }
+      });
+
+      if(inList) html += '</ul>';
+      return html;
+    }
+
+    async function getRoadmap() {
+      const job = document.getElementById("jobInput").value.trim();
+      if (!job) {
+        alert("Please enter a job role.");
+        return;
+      }
+
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "⏳ Generating roadmap for: " + job + "...";
+
+      try {
+        const response = await fetch("http://localhost:5000/api/ai/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: `Give me a detailed step-by-step career roadmap to become a successful ${job}. Include required skills, certifications, projects, and tools.`
+          })
+        });
+
+        const data = await response.json();
+        if (data.response) {
+          const formattedHTML = parseRoadmapTextToHTML(data.response);
+          outputDiv.innerHTML = `<h3>Career Roadmap for: ${job}</h3>${formattedHTML}`;
+        } else {
+          outputDiv.innerHTML = "❌ Failed to get roadmap. Please try again.";
+        }
+      } catch (err) {
+        outputDiv.innerHTML = "❌ Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

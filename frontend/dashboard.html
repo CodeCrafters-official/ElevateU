@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ElevateU Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    header {
+      background-color: #60a5fa;
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 16px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #facc15;
+    }
+
+    .main-content {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .main-content h1 {
+      font-size: 38px;
+      margin-bottom: 20px;
+    }
+
+    .dashboard-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      margin-top: 50px;
+    }
+
+    .section-box {
+      background-color: white;
+      border-radius: 16px;
+      padding: 40px 35px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 480px;
+    }
+
+    .section-box h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    .section-box p {
+      font-size: 18px;
+      margin: 8px 0;
+      color: #444;
+    }
+
+    canvas {
+      margin-top: 10px;
+    }
+
+    footer {
+      background: linear-gradient(to right, #ff8a00, #e52e71);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 15px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>🎓 ElevateU</strong></div>
+    <div class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="alumnimatch.html">Alumni Match & Referral</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="chat.html">🗪</a>
+      <a href="profile.html">👤</a>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <h1 id="welcome">Hi!</h1>
+
+    <div class="dashboard-section">
+      <div class="section-box">
+        <h3>Learning Progress</h3>
+        <canvas id="progressChart" width="440" height="320"></canvas>
+      </div>
+
+      <div class="section-box">
+        <h3>Mentorship Sessions</h3>
+        <p>Next session: Aug 2, 2025 @ 5:00 PM</p>
+        <p>Mentor: Priya S B</p>
+        <p>Topic: Resume Review</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 ElevateU. Built by CodeCrafters.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById("progressChart").getContext("2d");
+    const progressChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["AI", "ML", "DSA", "OS", "DBMS"],
+        datasets: [{
+          label: "Completion (%)",
+          data: [85, 60, 70, 40, 55],
+          backgroundColor: [
+            "#4f46e5",
+            "#9333ea",
+            "#10b981",
+            "#f59e0b",
+            "#ef4444"
+          ],
+          borderRadius: 5
+        }]
+      },
+      options: {
+        responsive: false,
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    // Set name in header using localStorage
+    const name = localStorage.getItem("studentName");
+    if (name) {
+      document.getElementById("welcome").textContent = `Hi, ${name}!`;
+    }
+  </script>
+</body>
+</html>

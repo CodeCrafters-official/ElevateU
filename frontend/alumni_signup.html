@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Sign Up | ElevateU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-100 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-8 rounded shadow-md w-96">
+    <h2 class="text-2xl font-bold text-blue-600 mb-6 text-center">Alumni Sign Up</h2>
+
+    <form id="signupForm">
+      <input id="name" type="text" placeholder="Full Name" class="w-full mb-4 px-4 py-2 border rounded" required />
+      <input id="email" type="email" placeholder="Email" class="w-full mb-4 px-4 py-2 border rounded" required />
+      <input id="password" type="password" placeholder="Password" class="w-full mb-4 px-4 py-2 border rounded" required />
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Register</button>
+    </form>
+
+    <p id="message" class="text-center mt-4 text-sm text-gray-700"></p>
+
+    <p class="text-sm text-center mt-4 text-gray-600">
+      Already have an account?
+      <a href="alumni_login.html" class="text-blue-500 hover:underline">Login</a>
+    </p>
+  </div>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('http://localhost:5000/api/users/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          message.textContent = "Registered successfully! Redirecting...";
+          message.classList.add('text-green-600');
+          setTimeout(() => {
+            window.location.href = "alumni_login.html";
+          }, 1500);
+        } else {
+          message.textContent = data.message || "Signup failed";
+          message.classList.add('text-red-600');
+        }
+      } catch (err) {
+        message.textContent = "Error connecting to server.";
+        message.classList.add('text-red-600');
+      }
+    });
+  </script>
+</body>
+</html>

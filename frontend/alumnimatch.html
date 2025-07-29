@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alumni Match & Referral - ElevateU</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #f0f4f8;
+      color: #333;
+      margin: 0;       /* Remove default margin */
+      padding: 0;      /* Remove default padding */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header - full width, no extra top/bottom space */
+    header {
+      width: 100%;
+      background-color: #60a5fa; /* Tailwind light blue 400 */
+      color: white;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 0;    /* No rounding */
+      margin: 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 16px;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover {
+      color: #facc15; /* Tailwind yellow 400 */
+    }
+
+    /* Page title */
+    main {
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 20px 60px; /* padding top/bottom */
+    }
+    h1 {
+      color: #1e40af; /* Tailwind blue 800 */
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+    }
+    h2 {
+      color: #3b82f6; /* Tailwind blue 500 */
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+
+    /* Search & filter */
+    .search-filter {
+      max-width: 700px;
+      margin: 0 auto 50px auto;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .search-filter input[type="text"],
+    .search-filter select {
+      padding: 12px 16px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: 2px solid #3b82f6;
+      outline: none;
+      flex-grow: 1;
+      min-width: 220px;
+      transition: border-color 0.3s;
+    }
+    .search-filter input[type="text"]:focus,
+    .search-filter select:focus {
+      border-color: #2563eb;
+    }
+
+    /* Alumni list grid */
+    .alumni-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 60px auto;
+    }
+
+    .alumni-card {
+      background: white;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1); /* Tailwind blue shadow */
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .alumni-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(59, 130, 246, 0.2);
+    }
+
+    .alumni-photo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #ddd;
+      object-fit: cover;
+      border: 3px solid #3b82f6;
+      flex-shrink: 0;
+    }
+
+    .alumni-info {
+      flex-grow: 1;
+    }
+    .alumni-info h3 {
+      margin-bottom: 6px;
+      font-size: 1.4rem;
+      color: #1e3a8a;
+    }
+    .alumni-info p {
+      margin: 4px 0;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    .connect-btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+    .connect-btn:hover {
+      background-color: #2563eb;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      header {
+        flex-direction: column;
+        font-size: 18px;
+        padding: 20px 25px;
+        gap: 12px;
+      }
+      .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .search-filter {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .alumni-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .alumni-photo {
+        margin-bottom: 12px;
+      }
+      .alumni-info p {
+        font-size: 0.95rem;
+      }
+      .connect-btn {
+        width: 100%;
+      }
+    }
+
+    /* Footer full width, no curve */
+    footer {
+      background: linear-gradient(to right, #ff8a00, #e52e71);
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 15px;
+      width: 100%;
+      margin: 0;
+      border-radius: 0;
+      box-shadow: 0 4px 20px rgba(229, 46, 113, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div><strong>🎓 ElevateU</strong></div>
+    <nav class="nav-links">
+      <a href="dashboard.html">Home</a>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="alumnimatch.html">Alumni Match & Referral</a>
+      <a href="mentorship.html">Mentorship</a>
+      <a href="chat.html">🗪</a>
+      <a href="profile.html">👤</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Alumni Match & Referral</h1>
+    <h2>Search alumni by company or domain</h2>
+
+    <div class="search-filter">
+      <input type="text" id="searchInput" placeholder="Search by name or company..." />
+      <select id="domainFilter">
+        <option value="">All Domains</option>
+        <option value="CSE">Computer Science</option>
+        <option value="AI & DS">AI & Data Science</option>
+        <option value="IT">Information Technology</option>
+        <option value="ECE">Electronics & Comm.</option>
+      </select>
+    </div>
+
+    <div class="alumni-list" id="alumniList">
+      <!-- Alumni cards inserted here by JS -->
+    </div>
+  </main>
+
+  <footer>
+    © 2025 ElevateU. Built by CodeCrafters.
+  </footer>
+
+  <script>
+    const alumniData = [
+      {
+        name: "Anjali Menon",
+        company: "Amazon",
+        domain: "CSE",
+        batch: 2018,
+        photo: "https://randomuser.me/api/portraits/women/65.jpg"
+      },
+      {
+        name: "Karthik Iyer",
+        company: "Infosys",
+        domain: "AI & DS",
+        batch: 2019,
+        photo: "https://randomuser.me/api/portraits/men/32.jpg"
+      },
+      {
+        name: "Priya Sharma",
+        company: "Google",
+        domain: "IT",
+        batch: 2017,
+        photo: "https://randomuser.me/api/portraits/women/47.jpg"
+      },
+      {
+        name: "Ramesh Kumar",
+        company: "Microsoft",
+        domain: "ECE",
+        batch: 2016,
+        photo: "https://randomuser.me/api/portraits/men/45.jpg"
+      },
+      {
+        name: "Sneha Patel",
+        company: "Facebook",
+        domain: "AI & DS",
+        batch: 2020,
+        photo: "https://randomuser.me/api/portraits/women/55.jpg"
+      }
+    ];
+
+    const alumniListEl = document.getElementById('alumniList');
+    const searchInput = document.getElementById('searchInput');
+    const domainFilter = document.getElementById('domainFilter');
+
+    function renderAlumniList(data) {
+      alumniListEl.innerHTML = '';
+      if(data.length === 0) {
+        alumniListEl.innerHTML = '<p style="text-align:center; width:100%;">No alumni found matching your criteria.</p>';
+        return;
+      }
+      data.forEach(alumnus => {
+        const card = document.createElement('div');
+        card.className = 'alumni-card';
+
+        card.innerHTML = `
+          <img src="${alumnus.photo}" alt="${alumnus.name}" class="alumni-photo" />
+          <div class="alumni-info">
+            <h3>${alumnus.name}</h3>
+            <p>${alumnus.company}</p>
+            <p>Batch: ${alumnus.batch} | Dept: ${alumnus.domain}</p>
+          </div>
+          <button class="connect-btn" onclick="connectAlumnus('${alumnus.name}')">Connect</button>
+        `;
+        alumniListEl.appendChild(card);
+      });
+    }
+
+    function connectAlumnus(name) {
+      alert(`Connection request sent to ${name}!`);
+    }
+
+    function filterAlumni() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedDomain = domainFilter.value;
+
+      const filtered = alumniData.filter(alumnus => {
+        const matchSearch = alumnus.name.toLowerCase().includes(searchTerm) || alumnus.company.toLowerCase().includes(searchTerm);
+        const matchDomain = selectedDomain === '' || alumnus.domain === selectedDomain;
+        return matchSearch && matchDomain;
+      });
+
+      renderAlumniList(filtered);
+    }
+
+    searchInput.addEventListener('input', filterAlumni);
+    domainFilter.addEventListener('change', filterAlumni);
+
+    // Initial render
+    renderAlumniList(alumniData);
+  </script>
+</body>
+</html>
