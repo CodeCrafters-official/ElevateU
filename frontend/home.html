@@ -5,55 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alumni Dashboard - ElevateU</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8; /* match other pages */
+      color: #1e293b; /* Tailwind slate-800 */
+    }
+  </style>
 </head>
-<body class="bg-blue-50 text-gray-800 font-sans">
+<body class="flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="bg-blue-400 text-white px-10 py-6 flex justify-between items-center shadow-md">
-    <div class="text-xl font-bold">🎓 ElevateU</div>
-    <nav class="flex gap-6 text-sm">
-      <a href="home.html" class="hover:text-yellow-300">Home</a>
-      <a href="student_match.html" class="hover:text-yellow-300">Student Match</a>
-      <a href="management.html" class="hover:text-yellow-300">Mentorship Management</a>
-      <a href="leaderboard.html" class="hover:text-yellow-300">Leaderboard</a>
-      <a href="profiles.html" class="hover:text-yellow-300">👤</a>
-    </nav>
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="home.html" class="hover:text-blue-600 transition">Home</a>
+        <a href="student_match.html" class="hover:text-blue-600 transition">Student Match</a>
+        <a href="management.html" class="hover:text-blue-600 transition">Mentorship Management</a>
+        <a href="leaderboard.html" class="hover:text-blue-600 transition">Leaderboard</a>
+        <a href="profiles.html" class="hover:text-blue-600 transition" title="Profile">👤</a>
+      </nav>
+    </div>
   </header>
 
-
   <!-- Main Content -->
-  <main class="max-w-5xl mx-auto py-12 px-6 text-center">
-    <h1 class="text-4xl font-bold text-blue-700 mb-4">Welcome, <span id="alumniName">Alumni</span></h1>
-    <p class="text-gray-600 text-lg mb-10">Here's your alumni dashboard. Connect, mentor, and grow with ElevateU!</p>
+  <main class="flex-grow max-w-5xl mx-auto px-6 py-14 text-center">
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-6">
+      Welcome, <span id="alumniName">Alumni</span>
+    </h1>
+    <p class="text-gray-600 text-lg mb-12">
+      Here's your alumni dashboard. Connect, mentor, and grow with ElevateU!
+    </p>
 
-    <div class="grid md:grid-cols-2 gap-10">
+    <div class="grid md:grid-cols-2 gap-12">
       <!-- Card 1 -->
-      <div class="bg-white shadow-lg rounded-xl p-8">
-        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Mentee Requests</h2>
-        <p class="text-gray-600 mb-4">View and accept mentorship requests from students looking for guidance in your field.</p>
-        <a href="student_match.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">Manage Requests</a>
+      <div class="bg-white rounded-2xl shadow-md p-10 text-left">
+        <h2 class="text-3xl font-semibold text-blue-800 mb-4">Mentee Requests</h2>
+        <p class="text-gray-700 mb-6">
+          View and accept mentorship requests from students looking for guidance in your field.
+        </p>
+        <a href="student_match.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+          Manage Requests
+        </a>
       </div>
 
       <!-- Card 2 -->
-      <div class="bg-white shadow-lg rounded-xl p-8">
-        <h2 class="text-2xl font-semibold text-blue-700 mb-4">Messages</h2>
-        <p class="text-gray-600 mb-4">Check your latest messages and continue conversations with your mentees.</p>
-        <a href="chat.html" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">Open Chat</a>
+      <div class="bg-white rounded-2xl shadow-md p-10 text-left">
+        <h2 class="text-3xl font-semibold text-blue-800 mb-4">Messages</h2>
+        <p class="text-gray-700 mb-6">
+          Check your latest messages and continue conversations with your mentees.
+        </p>
+        <a href="chat.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition">
+          Open Chat
+        </a>
       </div>
     </div>
   </main>
-
+  
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-orange-400 to-pink-600 text-white text-center py-4 mt-16 rounded-t-xl">
-    © 2025 ElevateU. Built by CodeCrafters.
+  <footer class="bg-white border-t py-6 mt-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"></a>
+      </div>
+    </div>
   </footer>
 
   <script>
     // Load alumni name from localStorage
-    const name = localStorage.getItem("studentName");
-    if (name) {
-      document.getElementById("welcome").textContent = `Hi, ${name}!`;
-    }
+    const name = localStorage.getItem("studentName") || "Alumni";
+    document.getElementById("alumniName").textContent = name;
   </script>
+
 </body>
 </html>
