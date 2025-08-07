@@ -2,207 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Chat - ElevateU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     body {
-      background: #f0f4f8;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      color: #1e293b; /* Tailwind slate-800 */
     }
-
-    header {
-      background-color: #60a5fa;
-      color: white;
-      padding: 30px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* Scrollbar for chat box */
+    #chat-box::-webkit-scrollbar {
+      width: 8px;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      font-size: 16px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #facc15;
-    }
-
-    .main-content {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .main-content h1 {
-      font-size: 38px;
-      margin-bottom: 20px;
-    }
-
-    .dashboard-section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 50px;
-      margin-top: 50px;
-    }
-
-    .section-box {
-      background-color: white;
-      border-radius: 16px;
-      padding: 40px 35px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      width: 480px;
-    }
-
-    #chat-box {
-      height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 15px;
-      background-color: #fefefe;
-      margin-bottom: 20px;
-    }
-
-    .user-msg {
-      text-align: right;
-      margin-bottom: 10px;
-    }
-
-    .bot-msg {
-      text-align: left;
-      margin-bottom: 10px;
-    }
-
-    .bubble {
-      display: inline-block;
-      padding: 10px 15px;
-      border-radius: 16px;
-      max-width: 80%;
-    }
-
-    .user-bubble {
-      background-color: #dbeafe;
-      color: #1e40af;
-    }
-
-    .bot-bubble {
-      background-color: #e5e7eb;
-      color: #111827;
-    }
-
-    input[type="text"] {
-      width: 75%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-right: 10px;
-    }
-
-    button {
-      padding: 10px 18px;
-      background-color: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #2563eb;
-    }
-
-    footer {
-      background: linear-gradient(to right, #ff8a00, #e52e71);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 15px;
-      margin-top: 60px;
+    #chat-box::-webkit-scrollbar-thumb {
+      background-color: #2563eb; /* Tailwind blue-600 */
+      border-radius: 10px;
     }
   </style>
 </head>
-<body>
-  <header>
-    <div><strong>🎓 ElevateU</strong></div>
-    <div class="nav-links">
-      <a href="dashboard.html">Home</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="alumnimatch.html">Alumni Match & Referral</a>
-      <a href="mentorship.html">Mentorship</a>
-      <a href="chat.html">🗪</a>
-      <a href="profile.html">👤</a>
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="dashboard.html" class="hover:text-blue-600 transition">Home</a>
+        <a href="roadmap.html" class="hover:text-blue-600 transition">Roadmap</a>
+        <a href="alumnimatch.html" class="hover:text-blue-600 transition">Alumni Match</a>
+        <a href="mentorship.html" class="hover:text-blue-600 transition">Mentorship</a>
+        <a href="chat.html" title="Chat" class="hover:text-blue-600 transition">🗪</a>
+        <a href="profile.html" title="Profile" class="hover:text-blue-600 transition">👤</a>
+      </nav>
     </div>
   </header>
 
-  <div class="main-content">
-    <h1>Chat with ElevateU AI</h1>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-4xl mx-auto px-6 py-14 flex flex-col items-center text-center">
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Chat with ElevateU AI</h1>
 
-    <div class="dashboard-section">
-      <div class="section-box">
-        <div id="chat-box"></div>
-        <div style="display: flex;">
-          <input type="text" id="userInput" placeholder="Type your message...">
-          <button onclick="sendMessage()">Send</button>
-        </div>
+    <section class="bg-white rounded-2xl shadow-md p-10 w-full max-w-xl flex flex-col">
+      <div id="chat-box" class="h-72 overflow-y-auto border border-gray-300 rounded-lg p-5 bg-gray-50 mb-6"></div>
+
+      <form id="chat-form" class="flex gap-4">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Type your message..."
+          autocomplete="off"
+          class="flex-grow border border-blue-400 rounded-lg px-4 py-3 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition"
+        >
+          Send
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"><!-- icon placeholder --></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"></a>
       </div>
     </div>
-  </div>
-
-  <footer>
-    © 2025 ElevateU. Built by CodeCrafters.
   </footer>
 
+  <!-- Script -->
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value.trim();
+    const chatForm = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('userInput');
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const message = userInput.value.trim();
       if (!message) return;
 
-      appendMessage("user", message);
-      input.value = "";
+      appendMessage('user', message);
+      userInput.value = '';
+      userInput.disabled = true;
 
       try {
-        const res = await fetch("http://localhost:5000/api/ai/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
+        const res = await fetch('http://localhost:5000/api/ai/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
         });
 
         const data = await res.json();
         if (data.response) {
-          appendMessage("bot", data.response);
+          appendMessage('bot', data.response);
         } else {
-          appendMessage("bot", "⚠️ No response received.");
+          appendMessage('bot', '⚠️ No response received.');
         }
       } catch (error) {
-        appendMessage("bot", "❌ Error: " + error.message);
+        appendMessage('bot', '❌ Error: ' + error.message);
+      } finally {
+        userInput.disabled = false;
+        userInput.focus();
       }
-    }
+    });
 
     function appendMessage(sender, text) {
-      const chatBox = document.getElementById("chat-box");
-      const msgDiv = document.createElement("div");
-      msgDiv.className = sender === "user" ? "user-msg" : "bot-msg";
+      const msgDiv = document.createElement('div');
+      msgDiv.className = sender === 'user' ? 'text-right mb-4' : 'text-left mb-4';
 
-      const bubble = document.createElement("div");
-      bubble.className = `bubble ${sender === "user" ? "user-bubble" : "bot-bubble"}`;
+      const bubble = document.createElement('div');
+      bubble.className =
+        sender === 'user'
+          ? 'inline-block bg-blue-200 text-blue-900 rounded-2xl px-5 py-3 max-w-[80%] break-words'
+          : 'inline-block bg-gray-200 text-gray-900 rounded-2xl px-5 py-3 max-w-[80%] break-words';
+
       bubble.textContent = text;
 
       msgDiv.appendChild(bubble);
