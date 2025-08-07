@@ -5,30 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Leaderboard & Badges - ElevateU</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      color: #1e293b; /* Tailwind slate-800 */
+    }
+    main {
+      max-width: 1100px;
+      margin: 60px auto 0 auto;
+      padding: 40px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+  </style>
 </head>
-<body class="bg-blue-50 text-gray-800 font-sans">
+<body class="flex flex-col min-h-screen">
 
   <!-- Header -->
-  <header class="bg-blue-400 text-white px-10 py-6 flex justify-between items-center shadow-md">
-    <div class="text-xl font-bold">🎓 ElevateU</div>
-    <nav class="flex gap-6 text-sm">
-      <a href="home.html" class="hover:text-yellow-300">Home</a>
-      <a href="student_match.html" class="hover:text-yellow-300">Student Match</a>
-      <a href="management.html" class="hover:text-yellow-300">Mentorship Management</a>
-      <a href="leaderboard.html" class="hover:text-yellow-300">Leaderboard</a>
-      <a href="profiles.html" class="hover:text-yellow-300">👤</a>
-    </nav>
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="home.html" class="hover:text-blue-600 transition">Home</a>
+        <a href="student_match.html" class="hover:text-blue-600 transition">Student Match</a>
+        <a href="management.html" class="hover:text-blue-600 transition">Mentorship Management</a>
+        <a href="leaderboard.html" class="font-semibold text-blue-600 transition">Leaderboard</a>
+        <a href="profiles.html" class="hover:text-blue-600 transition" title="Profile">👤</a>
+      </nav>
+    </div>
   </header>
 
   <!-- Main -->
-  <main class="max-w-5xl mx-auto py-12 px-6">
+  <main>
     <!-- Leaderboard Section -->
-    <section class="mb-14 text-center">
-      <h1 class="text-4xl font-bold text-blue-700 mb-2">Leaderboard</h1>
-      <p class="text-gray-600 text-lg mb-6">Top performing students based on contributions & sessions</p>
-      
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-        <table class="w-full text-sm text-left">
+    <section class="mb-16 text-center">
+      <h1 class="text-4xl font-extrabold text-blue-700 mb-2">Leaderboard</h1>
+      <p class="text-gray-600 text-lg mb-8">Top performing students based on contributions & sessions</p>
+
+      <div class="overflow-x-auto rounded-xl shadow-lg border border-gray-200">
+        <table class="w-full min-w-[600px] text-sm text-left divide-y divide-gray-200">
           <thead class="bg-blue-100 text-blue-900 uppercase tracking-wide">
             <tr>
               <th class="px-6 py-4">Rank</th>
@@ -37,7 +55,7 @@
             </tr>
           </thead>
           <tbody id="leaderboard-body" class="divide-y divide-blue-100">
-            <!-- JS Inserts Data -->
+            <!-- JS inserts rows here -->
           </tbody>
         </table>
       </div>
@@ -45,16 +63,24 @@
 
     <!-- Badges Section -->
     <section>
-      <h2 class="text-3xl font-bold text-blue-700 text-center mb-6">🎖 Badges</h2>
-      <div id="badge-container" class="flex flex-wrap justify-center gap-6">
-        <!-- JS Inserts Badges -->
+      <h2 class="text-3xl font-extrabold text-blue-700 text-center mb-8">🎖 Badges</h2>
+      <div id="badge-container" class="flex flex-wrap justify-center gap-8">
+        <!-- JS inserts badges here -->
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gradient-to-r from-orange-400 to-pink-600 text-white text-center py-4 mt-20 rounded-t-xl">
-    © 2025 ElevateU. Built by CodeCrafters.
+  <footer class="bg-white border-t py-6 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"></a>
+      </div>
+    </div>
   </footer>
 
   <script>
@@ -79,9 +105,9 @@
       const row = document.createElement('tr');
       row.classList = "hover:bg-blue-50";
       row.innerHTML = `
-        <td class="px-6 py-4">${user.rank}</td>
+        <td class="px-6 py-4 font-semibold">${user.rank}</td>
         <td class="px-6 py-4">${user.name}</td>
-        <td class="px-6 py-4">${user.points}</td>
+        <td class="px-6 py-4 font-mono">${user.points}</td>
       `;
       leaderboardBody.appendChild(row);
     });
@@ -89,9 +115,9 @@
     const badgeContainer = document.getElementById('badge-container');
     badges.forEach(badge => {
       const div = document.createElement('div');
-      div.className = 'bg-white rounded-xl shadow-md p-6 text-center w-40 hover:scale-105 transform transition duration-200';
+      div.className = 'bg-white rounded-xl shadow-md p-6 text-center w-44 hover:scale-105 transform transition duration-200 cursor-default';
       div.innerHTML = `
-        <img src="${badge.img}" alt="${badge.title}" class="w-16 h-16 mx-auto mb-3" />
+        <img src="${badge.img}" alt="${badge.title}" class="w-20 h-20 mx-auto mb-4" />
         <h3 class="text-blue-700 font-semibold text-lg">${badge.title}</h3>
       `;
       badgeContainer.appendChild(div);
