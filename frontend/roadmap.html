@@ -2,162 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Career Roadmap Generator - ElevateU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     body {
-      background: #f0f4f8;
-      color: #333;
-    }
-
-    /* Top Header with light blue */
-    header {
-      background-color: #60a5fa; /* Tailwind light blue 400 */
-      color: white;
-      padding: 30px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      font-size: 16px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #facc15; /* Tailwind yellow 400 */
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-    }
-
-    .search-bar {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 12px 16px;
-      font-size: 16px;
-      border: 2px solid #3b82f6;
-      border-radius: 12px;
-      outline: none;
-      transition: border-color 0.3s;
-    }
-
-    input[type="text"]:focus {
-      border-color: #2563eb;
-    }
-
-    button {
-      padding: 12px 24px;
-      background-color: #3b82f6;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: background-color 0.3s;
-      white-space: nowrap;
-    }
-
-    button:hover {
-      background-color: #2563eb;
-    }
-
-    #output {
-      white-space: normal;
-      font-size: 16px;
-      line-height: 1.6;
-      color: #1e40af; /* Tailwind blue 800 */
-    }
-
-    #output h3 {
-      margin-top: 24px;
-      margin-bottom: 12px;
-      color: #1e3a8a;
-    }
-
-    #output ul {
-      margin-left: 20px;
-      margin-bottom: 16px;
-      color: #374151;
-    }
-
-    #output li {
-      margin-bottom: 6px;
-    }
-
-    /* Footer */
-    footer {
-      background: linear-gradient(to right, #ff8a00, #e52e71);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 15px;
-      margin-top: 60px;
-      border-radius: 12px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      box-shadow: 0 4px 20px rgba(229, 46, 113, 0.3);
+      font-family: 'Inter', sans-serif;
     }
   </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
-  <header>
-    <div><strong>ElevateU</strong></div>
-    <nav class="nav-links">
-      <a href="dashboard.html">Home</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="alumnimatch.html">Alumni Match & Referral</a>
-      <a href="mentorship.html">Mentorship</a>
-      <a href="chat.html">🗪</a>
-      <a href="profile.html">👤</a>
-    </nav>
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="flex justify-between items-center max-w-7xl mx-auto">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="dashboard.html" class="hover:text-blue-600">Home</a>
+        <a href="roadmap.html" class="hover:text-blue-600">Roadmap</a>
+        <a href="alumnimatch.html" class="hover:text-blue-600">Alumni Match</a>
+        <a href="mentorship.html" class="hover:text-blue-600">Mentorship</a>
+        <a href="chat.html" title="Messages" class="hover:text-blue-600">🗪</a>
+        <a href="profile.html" title="Profile" class="hover:text-blue-600">👤</a>
+      </nav>
+    </div>
   </header>
 
-  <div class="container">
-    <div class="search-bar">
-      <input type="text" id="jobInput" placeholder="Enter any career (e.g., Data Scientist, Ethical Hacker)" />
-      <button onclick="getRoadmap()">Generate</button>
-    </div>
-    <div id="output"></div>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-4xl mx-auto py-14 px-6">
+    <h2 class="text-4xl font-extrabold text-center text-gray-800 mb-14">Career Roadmap Generator</h2>
 
-  <footer>
-    © 2025 ElevateU. Built by CodeCrafters.
+    <div class="bg-white rounded-2xl shadow-md p-8">
+      <div class="flex gap-4 mb-10">
+        <input 
+          type="text" 
+          id="jobInput" 
+          placeholder="Enter any career (e.g., Data Scientist, Ethical Hacker)" 
+          class="flex-grow border-2 border-blue-500 rounded-xl px-4 py-3 text-gray-900 text-lg focus:outline-none focus:border-blue-700 transition"
+        />
+        <button 
+          onclick="getRoadmap()" 
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold text-lg transition"
+        >
+          Generate
+        </button>
+      </div>
+
+      <div id="output" class="prose max-w-none text-gray-800"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
   </footer>
 
   <script>
-    // Converts AI markdown-like response text into HTML for better formatting
     function parseRoadmapTextToHTML(text) {
       const lines = text.split('\n');
       let html = '';
@@ -179,8 +89,6 @@
           html += `<li>${line.replace('- ', '').trim()}</li>`;
         }
         else if(line.startsWith('  - ')) {
-          // Nested bullet, append inside last list item
-          // We can do a simple append here:
           html = html.replace(/<\/li>$/, ` <ul><li>${line.replace('  - ', '').trim()}</li></ul></li>`);
         }
         else {
@@ -222,7 +130,7 @@
         const data = await response.json();
         if (data.response) {
           const formattedHTML = parseRoadmapTextToHTML(data.response);
-          outputDiv.innerHTML = `<h3>Career Roadmap for: ${job}</h3>${formattedHTML}`;
+          outputDiv.innerHTML = `<h3 class="text-xl font-semibold mb-6">Career Roadmap for: ${job}</h3>${formattedHTML}`;
         } else {
           outputDiv.innerHTML = "❌ Failed to get roadmap. Please try again.";
         }
