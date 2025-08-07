@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking - ElevateU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-400 text-white px-10 py-6 flex justify-between items-center shadow-md">
+    <div class="text-xl font-bold">🎓 ElevateU</div>
+    <nav class="flex gap-6 text-sm">
+      <a href="home.html" class="hover:text-yellow-300">Home</a>
+      <a href="student_match.html" class="hover:text-yellow-300">Student Match</a>
+      <a href="management.html" class="hover:text-yellow-300">Mentorship Management</a>
+      <a href="leaderboard.html" class="hover:text-yellow-300">Leaderboard</a>
+      <a href="profiles.html" class="hover:text-yellow-300">👤</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto py-12 px-6">
+    <h1 class="text-4xl font-bold text-blue-700 mb-6 text-center">Session Booking</h1>
+    <p class="text-center text-gray-600 mb-10">Book your mentorship sessions here.</p>
+
+    <div class="bg-white shadow-lg rounded-xl p-8">
+      <form id="bookingForm" class="space-y-6">
+        <div>
+          <label for="studentName" class="block mb-2 text-sm font-medium text-gray-700">Your Name</label>
+          <input type="text" id="studentName" name="studentName" class="w-full px-4 py-2 border border-gray-300 rounded-md" required />
+        </div>
+
+        <div>
+          <label for="mentorName" class="block mb-2 text-sm font-medium text-gray-700">Mentor Name</label>
+          <input list="mentors" id="mentorName" name="mentorName" class="w-full px-4 py-2 border border-gray-300 rounded-md" required />
+          <datalist id="mentors">
+            <option value="Ananya Verma"></option>
+            <option value="Rahul Iyer"></option>
+            <option value="Sana Kapoor"></option>
+            <option value="Mohit Reddy"></option>
+            <option value="Deepika Menon"></option>
+          </datalist>
+        </div>
+
+        <div>
+          <label for="date" class="block mb-2 text-sm font-medium text-gray-700">Date</label>
+          <input type="date" id="date" name="date" class="w-full px-4 py-2 border border-gray-300 rounded-md" required />
+        </div>
+
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">Request Session</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    document.getElementById("bookingForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Session requested successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
