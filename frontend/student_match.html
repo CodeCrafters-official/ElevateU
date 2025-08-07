@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Matches</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Matches - ElevateU</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f4f8;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      color: #1e293b; /* Tailwind slate-800 */
     }
+    /* Container style */
     .content-container {
       margin-top: 60px;
       padding: 40px;
@@ -20,129 +23,151 @@
       border-radius: 20px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     }
+    /* Scroll horizontal on smaller screens */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 20px;
+      border: 1px solid #bfdbfe; /* Tailwind blue-200 */
+      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
+    }
   </style>
 </head>
-<body>
-  <!-- Header same as dashboard -->
-  <header class="bg-blue-400 text-white px-10 py-6 flex justify-between items-center shadow-md">
-    <div class="text-xl font-bold">🎓 ElevateU</div>
-    <nav class="flex gap-6 text-sm">
-      <a href="home.html" class="hover:text-yellow-300">Home</a>
-      <a href="student_match.html" class="hover:text-yellow-300">Student Match</a>
-      <a href="management.html" class="hover:text-yellow-300">Mentorship Management</a>
-      <a href="leaderboard.html" class="hover:text-yellow-300">Leaderboard</a>
-      <a href="profiles.html" class="hover:text-yellow-300">👤</a>
-    </nav>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="home.html" class="hover:text-blue-600 transition">Home</a>
+        <a href="student_match.html" class="hover:text-blue-600 transition">Student Match</a>
+        <a href="management.html" class="hover:text-blue-600 transition">Mentorship Management</a>
+        <a href="leaderboard.html" class="hover:text-blue-600 transition">Leaderboard</a>
+        <a href="profiles.html" class="hover:text-blue-600 transition" title="Profile">👤</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Main content -->
-  <div class="content-container">
-    <!-- Title -->
-    <div class="text-center mb-10">
-      <h2 class="text-4xl font-bold text-blue-700 mb-2">Student Matches</h2>
-      <p class="text-gray-600 text-lg">
-        Curated students for <span class="font-semibold text-blue-600">mentorship</span> or <span class="font-semibold text-blue-600">referral</span> based on your profile.
-      </p>
-    </div>
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <div class="content-container">
 
-    <!-- Search -->
-    <div class="mb-6 flex justify-center">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Search Interest Areas..."
-        class="w-full max-w-lg px-5 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none text-base text-gray-700 shadow-sm"
-        onkeyup="filterTable()"
-      />
-    </div>
+      <!-- Title -->
+      <div class="text-center mb-10">
+        <h2 class="text-4xl font-extrabold text-blue-700 mb-2">Student Matches</h2>
+        <p class="text-gray-600 text-lg">
+          Curated students for <span class="font-semibold text-blue-600">mentorship</span> or <span class="font-semibold text-blue-600">referral</span> based on your profile.
+        </p>
+      </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto rounded-xl border border-blue-100 shadow-sm">
-      <table class="min-w-full text-sm text-left text-gray-700" id="studentTable">
-        <thead class="bg-blue-100 text-blue-900 uppercase tracking-wide text-sm">
-          <tr>
-            <th class="py-3 px-5">Name</th>
-            <th class="py-3 px-5">Course / Branch</th>
-            <th class="py-3 px-5">Year</th>
-            <th class="py-3 px-5">Interest Areas</th>
-            <th class="py-3 px-5">Match Score</th>
-            <th class="py-3 px-5 text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-blue-100">
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Kausika S</td>
-            <td class="py-4 px-5">B.Tech CSE</td>
-            <td class="py-4 px-5">3rd Year</td>
-            <td class="py-4 px-5">Data Science, Web Dev</td>
-            <td class="py-4 px-5">88%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Nithin S</td>
-            <td class="py-4 px-5">B.Tech ECE</td>
-            <td class="py-4 px-5">Final Year</td>
-            <td class="py-4 px-5">Embedded Systems, IoT</td>
-            <td class="py-4 px-5">85%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Priyadharshini M</td>
-            <td class="py-4 px-5">B.Sc. Mathematics</td>
-            <td class="py-4 px-5">2nd Year</td>
-            <td class="py-4 px-5">Quant Finance, ML</td>
-            <td class="py-4 px-5">78%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Mohamed Arsath J</td>
-            <td class="py-4 px-5">MBA (Marketing)</td>
-            <td class="py-4 px-5">1st Year</td>
-            <td class="py-4 px-5">Brand Strategy, Analytics</td>
-            <td class="py-4 px-5">81%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Pavithra A</td>
-            <td class="py-4 px-5">B.Tech IT</td>
-            <td class="py-4 px-5">Final Year</td>
-            <td class="py-4 px-5">UI/UX Design, Product Mgmt.</td>
-            <td class="py-4 px-5">90%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-          <tr class="hover:bg-blue-50">
-            <td class="py-4 px-5">Lakshmi Pradeepa</td>
-            <td class="py-4 px-5">B.Tech ADS</td>
-            <td class="py-4 px-5">Final Year</td>
-            <td class="py-4 px-5">UI/UX Design, Product Mgmt.</td>
-            <td class="py-4 px-5">75%</td>
-            <td class="py-4 px-5 text-center space-x-2">
-              <a href="#" class="text-blue-600 hover:underline">View Profile</a>
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <!-- Search -->
+      <div class="mb-6 flex justify-center">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search Interest Areas..."
+          class="w-full max-w-lg px-5 py-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none text-base text-gray-700 shadow-sm"
+          onkeyup="filterTable()"
+        />
+      </div>
 
-  <footer class="bg-gradient-to-r from-orange-400 to-pink-600 text-white text-center py-4 mt-16 rounded-t-xl">
-    © 2025 ElevateU. Built by CodeCrafters.
+      <!-- Table wrapper for horizontal scroll -->
+      <div class="table-wrapper">
+        <table class="min-w-full text-sm text-left text-gray-700 rounded-lg" id="studentTable">
+          <thead class="bg-blue-100 text-blue-900 uppercase tracking-wide text-sm rounded-lg">
+            <tr>
+              <th class="py-3 px-5">Name</th>
+              <th class="py-3 px-5">Course / Branch</th>
+              <th class="py-3 px-5">Year</th>
+              <th class="py-3 px-5">Interest Areas</th>
+              <th class="py-3 px-5">Match Score</th>
+              <th class="py-3 px-5 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-blue-100">
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Kausika S</td>
+              <td class="py-4 px-5">B.Tech CSE</td>
+              <td class="py-4 px-5">3rd Year</td>
+              <td class="py-4 px-5">Data Science, Web Dev</td>
+              <td class="py-4 px-5">88%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Nithin S</td>
+              <td class="py-4 px-5">B.Tech ECE</td>
+              <td class="py-4 px-5">Final Year</td>
+              <td class="py-4 px-5">Embedded Systems, IoT</td>
+              <td class="py-4 px-5">85%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Priyadharshini M</td>
+              <td class="py-4 px-5">B.Sc. Mathematics</td>
+              <td class="py-4 px-5">2nd Year</td>
+              <td class="py-4 px-5">Quant Finance, ML</td>
+              <td class="py-4 px-5">78%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Mohamed Arsath J</td>
+              <td class="py-4 px-5">MBA (Marketing)</td>
+              <td class="py-4 px-5">1st Year</td>
+              <td class="py-4 px-5">Brand Strategy, Analytics</td>
+              <td class="py-4 px-5">81%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Pavithra A</td>
+              <td class="py-4 px-5">B.Tech IT</td>
+              <td class="py-4 px-5">Final Year</td>
+              <td class="py-4 px-5">UI/UX Design, Product Mgmt.</td>
+              <td class="py-4 px-5">90%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+            <tr class="hover:bg-blue-50">
+              <td class="py-4 px-5 font-semibold">Lakshmi Pradeepa</td>
+              <td class="py-4 px-5">B.Tech ADS</td>
+              <td class="py-4 px-5">Final Year</td>
+              <td class="py-4 px-5">UI/UX Design, Product Mgmt.</td>
+              <td class="py-4 px-5">75%</td>
+              <td class="py-4 px-5 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:underline">View Profile</a>
+                <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm">Connect</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 mt-20">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"></a>
+      </div>
+    </div>
   </footer>
 
   <script>
@@ -161,5 +186,6 @@
       }
     }
   </script>
+
 </body>
 </html>
