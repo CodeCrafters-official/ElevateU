@@ -4,163 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mentorship Sessions - ElevateU</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
-    /* Reset & base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: #f0f4f8;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    /* Top Header with light blue */
-    header {
-      background-color: #60a5fa; /* Tailwind light blue 400 */
-      color: white;
-      padding: 30px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 20px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      font-size: 16px;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #facc15; /* Tailwind yellow 400 */
-    }
-
-    /* Main content */
-    .main-content {
-      flex: 1 0 auto;
-      text-align: center;
-      margin-top: 40px;
-      padding: 0 20px 40px;
-    }
-
-    .main-content h1 {
-      font-size: 38px;
-      margin-bottom: 20px;
-    }
-
-    /* Mentorship sections side by side */
-    .dashboard-section {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      gap: 50px;
-      margin-top: 50px;
-      flex-wrap: wrap;
-    }
-
-    .section-box {
-      background-color: white;
-      border-radius: 16px;
-      padding: 40px 35px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-      width: 480px;
-      text-align: left;
-      min-width: 300px;
-    }
-
-    .section-box h3 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #222;
-    }
-
-    .section-box p {
-      font-size: 18px;
-      margin: 8px 0;
-      color: #444;
-    }
-
-    button.book-btn {
-      background-color: #2563eb; /* Tailwind blue 600 */
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      font-size: 18px;
-      cursor: pointer;
-      margin-top: 20px;
-      transition: background-color 0.3s;
-    }
-
-    button.book-btn:hover {
-      background-color: #1d4ed8; /* Tailwind blue 700 */
-    }
-
-    /* Footer fixed at bottom */
-    footer {
-      background: linear-gradient(to right, #ff8a00, #e52e71);
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 15px;
-      flex-shrink: 0;
-      /* Remove margin-top to avoid space below footer */
-      margin: 0;
+    body {
+      font-family: 'Inter', sans-serif;
     }
   </style>
 </head>
-<body>
-  <header>
-    <div><strong>🎓 ElevateU</strong></div>
-    <div class="nav-links">
-      <a href="dashboard.html">Home</a>
-      <a href="roadmap.html">Roadmap</a>
-      <a href="alumnimatch.html">Alumni Match & Referral</a>
-      <a href="mentorship.html">Mentorship</a>
-      <a href="chat.html">🗪</a>
-      <a href="profile.html">👤</a>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white shadow-md py-4 px-6 sticky top-0 z-50">
+    <div class="flex justify-between items-center max-w-7xl mx-auto">
+      <h1 class="text-2xl font-extrabold text-blue-600">🎓 ElevateU</h1>
+      <nav class="flex gap-6 text-sm font-medium text-gray-700">
+        <a href="dashboard.html" class="hover:text-blue-600">Home</a>
+        <a href="roadmap.html" class="hover:text-blue-600">Roadmap</a>
+        <a href="alumnimatch.html" class="hover:text-blue-600">Alumni Match</a>
+        <a href="mentorship.html" class="hover:text-blue-600">Mentorship</a>
+        <a href="chat.html" title="Messages" class="hover:text-blue-600">🗪</a>
+        <a href="profile.html" title="Profile" class="hover:text-blue-600">👤</a>
+      </nav>
     </div>
   </header>
 
-  <div class="main-content">
-    <h1>Mentorship Sessions</h1>
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto py-14 px-6 text-center">
+    <h1 class="text-4xl font-extrabold text-blue-700 mb-12">Mentorship Sessions</h1>
 
-    <div class="dashboard-section">
-      <div class="section-box">
-        <h3>Resume Review</h3>
-        <p>Get personalized feedback on your resume from experienced mentors.</p>
-        <p><strong>Available Slots:</strong> Monday, Wednesday, Friday (4PM - 6PM)</p>
-        <button class="book-btn">Book Now</button>
-      </div>
+    <div class="flex flex-wrap justify-center gap-12">
+      <!-- Resume Review -->
+      <section class="bg-white rounded-2xl shadow-md p-10 max-w-md w-full text-left">
+        <h3 class="text-3xl font-semibold text-blue-800 mb-6">Resume Review</h3>
+        <p class="text-lg text-gray-700 mb-4">Get personalized feedback on your resume from experienced mentors.</p>
+        <p class="text-gray-600 font-medium mb-8"><strong>Available Slots:</strong> Monday, Wednesday, Friday (4PM - 6PM)</p>
+        <a href="mentorship_booking.html?type=Resume%20Review" class="block bg-blue-600 hover:bg-blue-700 text-white text-center px-8 py-3 rounded-lg font-semibold transition">
+          Request Now
+        </a>
+      </section>
 
-      <div class="section-box">
-        <h3>Mock Interview</h3>
-        <p>Practice real-time interview scenarios with industry mentors.</p>
-        <p><strong>Available Slots:</strong> Tuesday, Thursday (5PM - 7PM)</p>
-        <button class="book-btn">Book Now</button>
+      <!-- Mock Interview -->
+      <section class="bg-white rounded-2xl shadow-md p-10 max-w-md w-full text-left">
+        <h3 class="text-3xl font-semibold text-blue-800 mb-6">Mock Interview</h3>
+        <p class="text-lg text-gray-700 mb-4">Practice real-time interview scenarios with industry mentors.</p>
+        <p class="text-gray-600 font-medium mb-8"><strong>Available Slots:</strong> Tuesday, Thursday (5PM - 7PM)</p>
+        <a href="mentorship_booking.html?type=Mock%20Interview" class="block bg-blue-600 hover:bg-blue-700 text-white text-center px-8 py-3 rounded-lg font-semibold transition">
+          Request Now
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 mt-16">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 ElevateU. Built by CodeCrafters.</p>
+      <div class="flex space-x-4 text-gray-500 text-lg">
+        <a href="#" class="hover:text-blue-600" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-600" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="hover:text-blue-600" title="Instagram"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
-  </div>
-
-  <footer>
-    © 2025 ElevateU. Built by CodeCrafters.
   </footer>
+
 </body>
 </html>
