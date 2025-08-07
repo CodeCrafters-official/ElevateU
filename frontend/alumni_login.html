@@ -3,73 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Login - ElevateU</title>
+  <title>Alumni Login - ElevateU</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f3f4f6;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #3b82f6, #60a5fa);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 1rem;
     }
 
     .login-container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 350px;
+      background-color: #ffffff;
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      transition: transform 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 20px;
+      color: #1e3a8a;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
     }
 
     input {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      box-sizing: border-box;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3b82f6;
     }
 
     button {
       width: 100%;
-      padding: 10px;
-      background-color: #007bff;
+      padding: 0.75rem;
+      background-color: #3b82f6;
       border: none;
       color: white;
-      border-radius: 5px;
-      font-size: 16px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #2563eb;
     }
 
     .message {
       margin-top: 10px;
       text-align: center;
-      color: red;
+      font-size: 0.9rem;
     }
 
     .signup-link {
-      margin-top: 15px;
+      margin-top: 20px;
       text-align: center;
-      font-size: 14px;
+      font-size: 0.85rem;
     }
 
     .signup-link a {
-      color: #007bff;
+      color: #3b82f6;
       text-decoration: none;
+      font-weight: 500;
     }
 
     .signup-link a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
@@ -92,6 +127,7 @@
       const messageEl = document.getElementById('message');
 
       messageEl.textContent = "";
+      messageEl.style.color = "red";
 
       if (!email || !password) {
         messageEl.textContent = "Please enter both email and password.";
@@ -110,22 +146,19 @@
         if (response.ok && data.user) {
           messageEl.style.color = 'green';
           messageEl.textContent = "Login successful! Redirecting...";
-          localStorage.setItem("studentName", data.user.name); // or sessionStorage.setItem()
+          localStorage.setItem("studentName", data.user.name);
           setTimeout(() => {
             window.location.href = "home.html";
           }, 1000);
         } else {
-          messageEl.style.color = 'red';
           messageEl.textContent = data.message || "Login failed.";
         }
 
       } catch (error) {
-        messageEl.style.color = 'red';
         messageEl.textContent = "Something went wrong. Please try again.";
         console.error(error);
       }
     }
-
   </script>
 </body>
 </html>
